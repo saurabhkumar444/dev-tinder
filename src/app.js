@@ -3,8 +3,21 @@ console.log("start new session");
 
 const app = express();
 
-app.get("/user", (req, res) => {
-  res.send({ firstName: "John", lastName: "Maura" });
+app.get("/user/:userId?", (req, res) => {
+  const requestDetails = {
+    headers: req.headers,
+    query: req.query,
+    path: req.path,
+    method: req.method,
+    params: req.params,
+    body: req.body,
+    ip: req.ip,
+    userAgent: req.headers["user-agent"],
+    hostname: req.hostname,
+    originalUrl: req.originalUrl,
+  };
+  res.send(JSON.stringify(requestDetails));
+  //   res.send(res.json(requestDetails));
 });
 
 app.post("/user", (req, res) => {

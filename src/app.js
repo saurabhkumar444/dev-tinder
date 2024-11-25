@@ -24,9 +24,21 @@ app.post("/user", (req, res) => {
   res.send("post api hit successfully");
 });
 
-app.use("/file", (req, res) => {
-  res.send("code is running in '/file' path");
-});
+app.use(
+  "/file",
+  (req, res, next) => {
+    next();
+    // res.send("code 1");
+  },
+  (req, res, next) => {
+    next();
+    // res.send("code 2");
+  },
+  (req, res, next) => {
+    next();
+    res.send("code 3");
+  }
+);
 
 app.listen(8080, () => {
   console.log("server listening on 8080");

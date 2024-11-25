@@ -30,14 +30,16 @@ app.use(
     next();
     // res.send("code 1");
   },
-  (req, res, next) => {
-    next();
-    // res.send("code 2");
-  },
-  (req, res, next) => {
-    next();
-    res.send("code 3");
-  }
+  [
+    (req, res, next) => {
+      next();
+      // res.send("code 2");
+    },
+    (req, res, next) => {
+      next();
+      res.send("code 3");
+    },
+  ]
 );
 
 app.listen(8080, () => {

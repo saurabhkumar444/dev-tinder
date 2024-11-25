@@ -37,7 +37,7 @@ app.use(
     },
     (req, res, next) => {
       next();
-      res.send("code 3");
+      // res.send("code 3");
     },
   ]
 );

@@ -3,6 +3,16 @@ console.log("start new session");
 
 const app = express();
 
+app.use("/user", (req, res, next) => {
+  const authToken = "xyz";
+  console.log("Auth checked token: " + authToken);
+  if (authToken !== "xyz") {
+    res.status(401).send("Unauthrazed Token!!");
+  } else {
+    next();
+  }
+});
+
 app.get("/user/:userId?", (req, res) => {
   const requestDetails = {
     headers: req.headers,
@@ -20,27 +30,9 @@ app.get("/user/:userId?", (req, res) => {
   //   res.send(res.json(requestDetails));
 });
 
-app.post("/user", (req, res) => {
+app.post("/user/data", (req, res) => {
   res.send("post api hit successfully");
 });
-
-app.use(
-  "/file",
-  (req, res, next) => {
-    next();
-    // res.send("code 1");
-  },
-  [
-    (req, res, next) => {
-      next();
-      // res.send("code 2");
-    },
-    (req, res, next) => {
-      next();
-      // res.send("code 3");
-    },
-  ]
-);
 
 app.listen(8080, () => {
   console.log("server listening on 8080");

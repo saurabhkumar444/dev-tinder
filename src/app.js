@@ -1,17 +1,10 @@
 const express = require("express");
+const { userAuth, fileAuth } = require("./middleware/auth");
 console.log("start new session");
 
 const app = express();
 
-app.use("/user", (req, res, next) => {
-  const authToken = "xyz";
-  console.log("Auth checked token: " + authToken);
-  if (authToken !== "xyz") {
-    res.status(401).send("Unauthrazed Token!!");
-  } else {
-    next();
-  }
-});
+app.use("/user", userAuth);
 
 app.get("/user/:userId?", (req, res) => {
   const requestDetails = {
@@ -32,6 +25,14 @@ app.get("/user/:userId?", (req, res) => {
 
 app.post("/user/data", (req, res) => {
   res.send("post api hit successfully");
+});
+
+app.post("/file", fileAuth, (req, res) => {
+  res.send("file api hit successfully");
+});
+
+app.post("/file/login", (req, res) => {
+  res.send("Login Api hit successfully");
 });
 
 app.listen(8080, () => {

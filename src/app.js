@@ -22,6 +22,24 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+app.get("/user", async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    res.send(user);
+  } catch (e) {
+    console.log("error", e);
+  }
+});
+
+app.get("/userbyId", async (req, res) => {
+  try {
+    const user = await User.findById({ _id: req.body.id });
+    res.send(user);
+  } catch (e) {
+    console.log("error", e);
+  }
+});
+
 ConnectDb()
   .then(() => {
     console.log("connect db Established");

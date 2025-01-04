@@ -42,7 +42,7 @@ app.get("/userbyId", async (req, res) => {
 
 ConnectDb()
   .then(() => {
-    console.log("connect db Established");
+    console.log("connect db Established ");
     app.listen(8080, () => {
       console.log("server listening on 8080");
     });
